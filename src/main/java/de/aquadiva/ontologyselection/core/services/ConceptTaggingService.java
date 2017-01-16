@@ -1,6 +1,5 @@
 package de.aquadiva.ontologyselection.core.services;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,29 +27,11 @@ import de.julielab.jcore.types.OntClassMention;
 
 public class ConceptTaggingService implements IConceptTaggingService {
 
-	private AnalysisEngine sentenceAE;
-	private AnalysisEngine acronymAE;
 	private AnalysisEngine bioPortalGazetteerAE;
 	private JCas jCas;
 
-	/**
-	 * For unit test purposes, the employed configuration can be changed via a
-	 * Java property. For testing, this is necessary or at least helpful since
-	 * it allows us to work with a small test dictionary in contrast to the
-	 * full-grown dictionary that has nearly 1GB when unzipped. This is not
-	 * intended for production use and this is not further documented but just
-	 * used in the corresponding unit tests.
-	 */
-	public final static String GAZETTEER_CONFIG = "gazetteer.config";
-
 	public ConceptTaggingService(@Symbol(JoyceSymbolConstants.GAZETTEER_CONFIG) String gazetteerConfigFile) {
 		try {
-			sentenceAE = AnalysisEngineFactory.createEngine("de.julielab.jcore.ae.jsbd.desc.jcore-jsbd-ae-biomedical-english");
-			// We do NOT apply
-//			acronymAE = AnalysisEngineFactory.createEngine(
-//					AcronymAnnotator.class, AcronymAnnotator.PARAM_ACROLIST,
-//					"acrolist.txt", AcronymAnnotator.PARAM_MAXLENGTH_FACTOR, 5,
-//					AcronymAnnotator.PARAM_CONSISTENCY_ANNO, true);
 
 			ExternalResourceDescription extDesc = ExternalResourceFactory
 					.createExternalResourceDescription(
@@ -66,9 +47,7 @@ public class ConceptTaggingService implements IConceptTaggingService {
 			jCas = JCasFactory.createJCas("de.julielab.jcore.types.jcore-all-types");
 		} catch (UIMAException e) {
 			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		} 
 
 	}
 
@@ -79,8 +58,6 @@ public class ConceptTaggingService implements IConceptTaggingService {
 			jCas.setDocumentText(text);
 			CAS cas = jCas.getCas();
 
-			sentenceAE.process(cas);
-//			acronymAE.process(cas);
 			bioPortalGazetteerAE.process(cas);
 
 			Multiset<String> conceptIds = HashMultiset.create();
@@ -89,7 +66,6 @@ public class ConceptTaggingService implements IConceptTaggingService {
 			while (it.hasNext()) {
 				OntClassMention ontClassMention = (OntClassMention) it.next();
 				conceptIds.add(ontClassMention.getSpecificType());
-//				System.err.println(ontClassMention.getCoveredText() + " " + ontClassMention.getSpecificType());
 			}
 			return conceptIds;
 		} catch (UIMAException e) {
@@ -105,8 +81,6 @@ public class ConceptTaggingService implements IConceptTaggingService {
 			jCas.setDocumentText(text);
 			CAS cas = jCas.getCas();
 
-			sentenceAE.process(cas);
-//			acronymAE.process(cas);
 			bioPortalGazetteerAE.process(cas);
 
 			Multiset<String> coveredTerms = HashMultiset.create();
@@ -130,8 +104,6 @@ public class ConceptTaggingService implements IConceptTaggingService {
 			jCas.setDocumentText(text);
 			CAS cas = jCas.getCas();
 
-			sentenceAE.process(cas);
-//			acronymAE.process(cas);
 			bioPortalGazetteerAE.process(cas);
 
 			Multiset<String> coveredTerms = HashMultiset.create();
