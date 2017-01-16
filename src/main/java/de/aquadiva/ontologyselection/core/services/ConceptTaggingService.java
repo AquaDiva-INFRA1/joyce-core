@@ -1,0 +1,185 @@
+package de.aquadiva.ontologyselection.core.services;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.uima.UIMAException;
+import org.apache.uima.analysis_engine.AnalysisEngine;
+import org.apache.uima.cas.CAS;
+import org.apache.uima.cas.FSIterator;
+import org.apache.uima.fit.factory.AnalysisEngineFactory;
+import org.apache.uima.fit.factory.ExternalResourceFactory;
+import org.apache.uima.fit.factory.JCasFactory;
+import org.apache.uima.fit.util.JCasUtil;
+import org.apache.uima.jcas.JCas;
+import org.apache.uima.jcas.tcas.Annotation;
+import org.apache.uima.resource.ExternalResourceDescription;
+
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
+
+import de.julielab.jules.ae.SentenceAnnotator;
+import de.julielab.jules.ae.acronymtagger.AcronymAnnotator;
+import de.julielab.jules.lingpipegazetteer.ChunkerProviderImplAlt;
+import de.julielab.jules.lingpipegazetteer.GazetteerAnnotator;
+import de.julielab.jules.types.OntClassMention;
+
+public class ConceptTaggingService implements IConceptTaggingService {
+
+	private AnalysisEngine sentenceAE;
+	private AnalysisEngine acronymAE;
+	private AnalysisEngine bioPortalGazetteerAE;
+	private JCas jCas;
+
+	/**
+	 * For unit test purposes, the employed configuration can be changed via a
+	 * Java property. For testing, this is necessary or at least helpful since
+	 * it allows us to work with a small test dictionary in contrast to the
+	 * full-grown dictionary that has nearly 1GB when unzipped. This is not
+	 * intended for production use and this is not further documented but just
+	 * used in the corresponding unit tests.
+	 */
+	public final static String GAZETTEER_CONFIG = "gazetteer.config";
+
+	public ConceptTaggingService() {
+		try {
+			sentenceAE = AnalysisEngineFactory.createEngine(
+					SentenceAnnotator.class,
+					SentenceAnnotator.PARAM_MODEL_FILE,
+					"JSBD-2.0-biomed.mod.gz",
+					SentenceAnnotator.PARAM_DO_POSTPROCESSING, true);
+			// We do NOT apply
+//			acronymAE = AnalysisEngineFactory.createEngine(
+//					AcronymAnnotator.class, AcronymAnnotator.PARAM_ACROLIST,
+//					"acrolist.txt", AcronymAnnotator.PARAM_MAXLENGTH_FACTOR, 5,
+//					AcronymAnnotator.PARAM_CONSISTENCY_ANNO, true);
+
+			// For unit test purposes, the employed configuration can be changed
+			// via a Java property. For testing, this
+			// is necessary or at least helpful since it allows us to work with
+			// a small test dictionary in contrast to
+			// the full-grown dictionary that has nearly 1GB when unzipped. This
+			// is not intended for production use and
+			// this is not further documented but just used in the corresponding
+			// unit tests.
+			String configPath = System.getProperty(GAZETTEER_CONFIG);
+			ExternalResourceDescription extDesc = ExternalResourceFactory
+					.createExternalResourceDescription(
+							ChunkerProviderImplAlt.class,
+							null == configPath ? "bioportal.gazetteer.properties"
+									: configPath);
+			bioPortalGazetteerAE = AnalysisEngineFactory.createEngine(
+					GazetteerAnnotator.class,
+					GazetteerAnnotator.PARAM_OUTPUT_TYPE,
+					"de.julielab.jules.types.OntClassMention",
+					GazetteerAnnotator.PARAM_CHECK_ACRONYMS, true,
+					GazetteerAnnotator.CHUNKER_RESOURCE_NAME, extDesc);
+
+			jCas = JCasFactory.createJCas("julie-all-types");
+		} catch (UIMAException e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	@Override
+	public synchronized Multiset<String> findConcepts(String text) {
+		try {
+			jCas.reset();
+			jCas.setDocumentText(text);
+			CAS cas = jCas.getCas();
+
+			sentenceAE.process(cas);
+//			acronymAE.process(cas);
+			bioPortalGazetteerAE.process(cas);
+
+			Multiset<String> conceptIds = HashMultiset.create();
+			FSIterator<Annotation> it = jCas.getAnnotationIndex(
+					OntClassMention.type).iterator();
+			while (it.hasNext()) {
+				OntClassMention ontClassMention = (OntClassMention) it.next();
+				conceptIds.add(ontClassMention.getSpecificType());
+//				System.err.println(ontClassMention.getCoveredText() + " " + ontClassMention.getSpecificType());
+			}
+			return conceptIds;
+		} catch (UIMAException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Multiset<String> findCoveredTerms(String text) {
+		try {
+			jCas.reset();
+			jCas.setDocumentText(text);
+			CAS cas = jCas.getCas();
+
+			sentenceAE.process(cas);
+//			acronymAE.process(cas);
+			bioPortalGazetteerAE.process(cas);
+
+			Multiset<String> coveredTerms = HashMultiset.create();
+			FSIterator<Annotation> it = jCas.getAnnotationIndex(
+					OntClassMention.type).iterator();
+			while (it.hasNext()) {
+				OntClassMention ontClassMention = (OntClassMention) it.next();
+				coveredTerms.add(ontClassMention.getCoveredText());
+			}
+			return coveredTerms;
+		} catch (UIMAException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Multiset<String> findCoveredTermsAndConcepts(String text) {
+		try {
+			jCas.reset();
+			jCas.setDocumentText(text);
+			CAS cas = jCas.getCas();
+
+			sentenceAE.process(cas);
+//			acronymAE.process(cas);
+			bioPortalGazetteerAE.process(cas);
+
+			Multiset<String> coveredTerms = HashMultiset.create();
+			FSIterator<Annotation> it = jCas.getAnnotationIndex(
+					OntClassMention.type).iterator();
+			int begin = -1;
+			int end = -1;
+			while (it.hasNext()) {
+				OntClassMention ontClassMention = (OntClassMention) it.next();
+				String term = null;
+				List<String> ids = null;
+				if (begin != ontClassMention.getBegin()
+						|| end != ontClassMention.getEnd()) {
+					begin = ontClassMention.getBegin();
+					end = ontClassMention.getEnd();
+					List<OntClassMention> allClassesAtPosition = JCasUtil
+							.selectCovered(jCas, OntClassMention.class,
+									ontClassMention);
+					if (null != allClassesAtPosition
+							&& !allClassesAtPosition.isEmpty()) {
+						ids = new ArrayList<>();
+						for (OntClassMention mention : allClassesAtPosition) {
+							if (term == null)
+								term = mention.getCoveredText();
+							ids.add(mention.getSpecificType());
+						}
+					}
+				}
+				if (term != null && ids != null) {
+					coveredTerms.add(term + "\t" + StringUtils.join(ids, "||"));
+				}
+			}
+			return coveredTerms;
+		} catch (UIMAException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+}

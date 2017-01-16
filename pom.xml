@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.aquadiva</groupId>
+		<artifactId>ad-ontology-selection</artifactId>
+		<version>0.0.2-SNAPSHOT</version>
+		<relativePath>../ad-ontology-selection</relativePath>
+	</parent>
+	<artifactId>ad-ontology-selection-core</artifactId>
+	<name>AquaDiva Ontology Selection Core Module</name>
+	<description>The core module for the AquaDiva ontology selection, pulling together all submodules required for the full functionality of the ontology selection tool suite. This project could be used by another module intended for user presentation with a GUI, interactive scoring, selection manipulation, statistical presentation etc.</description>
+	<repositories>
+		<repository>
+			<id>external-jars</id>
+			<name>External JAR Repo</name>
+			<url>file://${project.basedir}/external-jars</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>de.aquadiva</groupId>
+			<artifactId>ad-ontology-selection-base</artifactId>
+			<version>${app-version}</version>
+		</dependency>
+		<dependency>
+			<!-- This dependency actually resides in the in-project repository configured 
+				above. The reason is that the tagging components are artifacts within the 
+				JULES Nexus artifact manager and won't currently be accessible via Maven 
+				from other locations. Thus, a single JAR has been created containing the 
+				necessary components. To use this JAR with Maven, the in-project repository 
+				is used. -->
+			<groupId>de.aquadiva</groupId>
+			<artifactId>ad-concept-tagging</artifactId>
+			<version>0.0.3</version>
+			<classifier>with-dependencies</classifier>
+		</dependency>
+		<dependency>
+			<groupId>de.aquadiva</groupId>
+			<artifactId>falcon</artifactId>
+			<version>1.0</version>
+			<!-- <scope>system</scope> <systemPath>${basedir}/lib/falcon-1.0.jar</systemPath> -->
+		</dependency>
+
+		<dependency>
+			<groupId>de.aquadiva</groupId>
+			<artifactId>OPT</artifactId>
+			<version>1.0</version>
+			<!-- <scope>system</scope> <systemPath>${basedir}/lib/OPT-1.0.jar</systemPath> -->
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>net.sourceforge.owlapi</groupId> -->
+<!-- 			<artifactId>owlapi-modularity</artifactId> -->
+<!-- 			<version>3.3</version> -->
+<!-- 		</dependency> -->
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.3</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
