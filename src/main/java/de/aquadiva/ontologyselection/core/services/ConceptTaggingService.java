@@ -1,9 +1,11 @@
 package de.aquadiva.ontologyselection.core.services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.uima.UIMAException;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.cas.CAS;
@@ -19,11 +21,10 @@ import org.apache.uima.resource.ExternalResourceDescription;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 
-import de.julielab.jules.ae.SentenceAnnotator;
-import de.julielab.jules.ae.acronymtagger.AcronymAnnotator;
-import de.julielab.jules.lingpipegazetteer.ChunkerProviderImplAlt;
-import de.julielab.jules.lingpipegazetteer.GazetteerAnnotator;
-import de.julielab.jules.types.OntClassMention;
+import de.aquadiva.ontologyselection.JoyceSymbolConstants;
+import de.julielab.jcore.ae.lingpipegazetteer.chunking.ChunkerProviderImplAlt;
+import de.julielab.jcore.ae.lingpipegazetteer.uima.GazetteerAnnotator;
+import de.julielab.jcore.types.OntClassMention;
 
 public class ConceptTaggingService implements IConceptTaggingService {
 
@@ -42,42 +43,30 @@ public class ConceptTaggingService implements IConceptTaggingService {
 	 */
 	public final static String GAZETTEER_CONFIG = "gazetteer.config";
 
-	public ConceptTaggingService() {
+	public ConceptTaggingService(@Symbol(JoyceSymbolConstants.GAZETTEER_CONFIG) String gazetteerConfigFile) {
 		try {
-			sentenceAE = AnalysisEngineFactory.createEngine(
-					SentenceAnnotator.class,
-					SentenceAnnotator.PARAM_MODEL_FILE,
-					"JSBD-2.0-biomed.mod.gz",
-					SentenceAnnotator.PARAM_DO_POSTPROCESSING, true);
+			sentenceAE = AnalysisEngineFactory.createEngine("de.julielab.jcore.ae.jsbd.desc.jcore-jsbd-ae-biomedical-english");
 			// We do NOT apply
 //			acronymAE = AnalysisEngineFactory.createEngine(
 //					AcronymAnnotator.class, AcronymAnnotator.PARAM_ACROLIST,
 //					"acrolist.txt", AcronymAnnotator.PARAM_MAXLENGTH_FACTOR, 5,
 //					AcronymAnnotator.PARAM_CONSISTENCY_ANNO, true);
 
-			// For unit test purposes, the employed configuration can be changed
-			// via a Java property. For testing, this
-			// is necessary or at least helpful since it allows us to work with
-			// a small test dictionary in contrast to
-			// the full-grown dictionary that has nearly 1GB when unzipped. This
-			// is not intended for production use and
-			// this is not further documented but just used in the corresponding
-			// unit tests.
-			String configPath = System.getProperty(GAZETTEER_CONFIG);
 			ExternalResourceDescription extDesc = ExternalResourceFactory
 					.createExternalResourceDescription(
 							ChunkerProviderImplAlt.class,
-							null == configPath ? "bioportal.gazetteer.properties"
-									: configPath);
+							gazetteerConfigFile);
 			bioPortalGazetteerAE = AnalysisEngineFactory.createEngine(
 					GazetteerAnnotator.class,
 					GazetteerAnnotator.PARAM_OUTPUT_TYPE,
-					"de.julielab.jules.types.OntClassMention",
+					"de.julielab.jcore.types.OntClassMention",
 					GazetteerAnnotator.PARAM_CHECK_ACRONYMS, true,
 					GazetteerAnnotator.CHUNKER_RESOURCE_NAME, extDesc);
 
-			jCas = JCasFactory.createJCas("julie-all-types");
+			jCas = JCasFactory.createJCas("de.julielab.jcore.types.jcore-all-types");
 		} catch (UIMAException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 

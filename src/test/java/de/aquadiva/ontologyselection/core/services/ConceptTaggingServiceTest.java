@@ -12,13 +12,15 @@ import org.junit.Test;
 
 import com.google.common.collect.Multiset;
 
+import de.aquadiva.ontologyselection.JoyceSymbolConstants;
+
 public class ConceptTaggingServiceTest {
 
 	private static Registry registry;
 
 	@BeforeClass
 	public static void setup() {
-		registry = RegistryBuilder.buildAndStartupRegistry(OSCoreModule.class);
+		registry = RegistryBuilder.buildAndStartupRegistry(JoyceCoreModule.class);
 	}
 
 	@AfterClass
@@ -30,7 +32,7 @@ public class ConceptTaggingServiceTest {
 	public void testConceptTagging() {
 		// Set the test configuration for the gazetteer so we may work with a
 		// small test dictionary
-		System.setProperty(ConceptTaggingService.GAZETTEER_CONFIG, "bioportal.gazetteer.test.properties");
+		System.setProperty(JoyceSymbolConstants.GAZETTEER_CONFIG, "bioportal.gazetteer.test.properties");
 		IConceptTaggingService service = registry.getService(IConceptTaggingService.class);
 
 		String input = "I have no idea what an accessory lung might be. Perhaps it has some connection with accessory mamillas or accessory mammary tissue? But perhaps an accessory lung is something else.";

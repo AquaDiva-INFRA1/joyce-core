@@ -5,7 +5,7 @@ import org.apache.tapestry5.ioc.annotations.SubModule;
 
 import de.aquadiva.ontologyselection.base.services.IConstantOntologyScorer;
 import de.aquadiva.ontologyselection.base.services.IVariableOntologyScorer;
-import de.aquadiva.ontologyselection.base.services.OSBaseModule;
+import de.aquadiva.ontologyselection.base.services.JoyceBaseModule;
 import de.aquadiva.ontologyselection.core.services.ActiveCommunityScorer.ActiveCommunity;
 import de.aquadiva.ontologyselection.core.services.ClassCoverageScorer.ClassCoverage;
 import de.aquadiva.ontologyselection.core.services.ClassOverheadScorer.ClassOverhead;
@@ -15,8 +15,8 @@ import de.aquadiva.ontologyselection.core.services.PopularityScorer.Popularity;
 import de.aquadiva.ontologyselection.core.services.RichnessScorer.Richness;
 import de.aquadiva.ontologyselection.core.services.UpToDateScorer.UpToDate;
 
-@SubModule(value = { OSBaseModule.class })
-public class OSCoreModule {
+@SubModule(value = { JoyceBaseModule.class })
+public class JoyceCoreModule {
 	@SuppressWarnings("unchecked")
 	public static void bind(ServiceBinder binder) {
 		binder.bind(IConceptTaggingService.class, ConceptTaggingService.class);

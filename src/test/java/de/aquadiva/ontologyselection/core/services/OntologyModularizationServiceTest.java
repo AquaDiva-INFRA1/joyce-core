@@ -25,7 +25,7 @@ public class OntologyModularizationServiceTest {
 
 	@BeforeClass
 	public static void setup() {
-		registry = RegistryBuilder.buildAndStartupRegistry(OSCoreModule.class);
+		registry = RegistryBuilder.buildAndStartupRegistry(JoyceCoreModule.class);
 	}
 
 	@AfterClass
