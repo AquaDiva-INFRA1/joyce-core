@@ -58,6 +58,7 @@ public class ClassCoverageScorerTest {
 		moduleClassIds.add("class 2");
 		module1 = new OntologyModule();
 		module1.setClassIds(moduleClassIds);
+		module1.setId("module1");
 		
 		// uncomment this, if you want to allow for multiple occurences of the same class in one ontology/module
 		// ONTOLOGY MODULE 2: a module containing the classes [class 1, class 3 x 2, class 4]
@@ -75,6 +76,7 @@ public class ClassCoverageScorerTest {
 		moduleClassIds2.add("class 4");
 		module2 = new OntologyModule();
 		module2.setClassIds(moduleClassIds2);
+		module2.setId("module2");
 		
 		// ONTOLOGY SET NULL: a null ontology set
 		
