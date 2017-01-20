@@ -1,19 +1,23 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.HashSet;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.HashMultiset;
 
-import de.aquadiva.ontologyselection.base.data.OntologyModule;
-import de.aquadiva.ontologyselection.base.data.OntologySet;
-import de.aquadiva.ontologyselection.base.data.ScoreType;
+import de.aquadiva.joyce.base.data.OntologyModule;
+import de.aquadiva.joyce.base.data.OntologySet;
+import de.aquadiva.joyce.base.data.ScoreType;
+import de.aquadiva.joyce.core.services.ClassCoverageScorer;
 
-public class ClassCoverlapScorerTest {
+public class ClassCoverageScorerTest {
 	static HashMultiset<String> inputClassIds;
 	static HashMultiset<String> inputClassIdsNULL;
 	static OntologyModule moduleNULL;
@@ -22,6 +26,8 @@ public class ClassCoverlapScorerTest {
 	static OntologySet sNULL;
 	static OntologySet s1;
 	static OntologySet s2;
+	
+	private static final Logger coverageLogger = LoggerFactory.getLogger(ClassCoverageScorer.class);
 	
 	@Before
 	public void setup() {
@@ -53,11 +59,12 @@ public class ClassCoverlapScorerTest {
 		moduleClassIds.add("class 2");
 		module1 = new OntologyModule();
 		module1.setClassIds(moduleClassIds);
-
+		module1.setId("module1");
+		
 		// uncomment this, if you want to allow for multiple occurences of the same class in one ontology/module
 		// ONTOLOGY MODULE 2: a module containing the classes [class 1, class 3 x 2, class 4]
 //		HashMultiset<String> moduleClassIds2 = HashMultiset.create(3);
-//		moduleClassIds2.add("class 1", 2);
+//		moduleClassIds2.add("class 1", 1);
 //		moduleClassIds2.add("class 3", 2);
 //		moduleClassIds2.add("class 4", 1);
 //		module2 = new OntologyModule();
@@ -70,6 +77,7 @@ public class ClassCoverlapScorerTest {
 		moduleClassIds2.add("class 4");
 		module2 = new OntologyModule();
 		module2.setClassIds(moduleClassIds2);
+		module2.setId("module2");
 		
 		// ONTOLOGY SET NULL: a null ontology set
 		
@@ -87,8 +95,8 @@ public class ClassCoverlapScorerTest {
 	public void testScoreSingleOntologyWithValidInputs() {
 		
 		//test correctness of the result for a valid input
-		(new ClassOverlapScorer()).score(module1, inputClassIds);
-		assertEquals( 0.0, module1.getScore(ScoreType.CLASS_OVERLAP).doubleValue(), 0.0 );
+		(new ClassCoverageScorer(coverageLogger)).score(module1, inputClassIds);
+		assertEquals( 0.4, module1.getScore(ScoreType.TERM_COVERAGE).doubleValue(), 0.0 );
 
 	}
 	
@@ -96,12 +104,12 @@ public class ClassCoverlapScorerTest {
 	public void testScoreSingleOntologyWithInvalidInputs() {
 		
 		//test for invalid inputs
-		(new ClassOverlapScorer()).score(module1, inputClassIdsNULL);
-		assertEquals( 0.0, module1.getScore(ScoreType.CLASS_OVERLAP), 0.0 );
-		(new ClassOverlapScorer()).score(moduleNULL, inputClassIds);
-		assertEquals( 0.0, module1.getScore(ScoreType.CLASS_OVERLAP), 0.0 );
-		(new ClassOverlapScorer()).score(moduleNULL, inputClassIdsNULL);
-		assertEquals( 0.0, module1.getScore(ScoreType.CLASS_OVERLAP), 0.0 );
+		(new ClassCoverageScorer(coverageLogger)).score(module1, inputClassIdsNULL);
+		assertEquals( 0.0,  module1.getScore(ScoreType.TERM_COVERAGE), 0.0 );
+		(new ClassCoverageScorer(coverageLogger)).score(moduleNULL, inputClassIds);
+		assertEquals( 0.0,  module1.getScore(ScoreType.TERM_COVERAGE), 0.0 );
+		(new ClassCoverageScorer(coverageLogger)).score(moduleNULL, inputClassIdsNULL);
+		assertEquals( 0.0,  module1.getScore(ScoreType.TERM_COVERAGE), 0.0 );
 
 	}
 	
@@ -109,8 +117,8 @@ public class ClassCoverlapScorerTest {
 	public void testScoreOntologySetFromScratchWithValidInputs() {
 		
 		//test correctness of the result for a valid input 
-		(new ClassOverlapScorer()).score(s2, inputClassIds);
-		assertEquals( -0.1, s2.getScore(ScoreType.CLASS_OVERLAP).doubleValue(), 0.0 );
+		(new ClassCoverageScorer(coverageLogger)).score(s2, inputClassIds);
+		assertEquals( 0.8, s2.getScore(ScoreType.TERM_COVERAGE).doubleValue(), 0.0 );
 		
 	}
 	
@@ -118,12 +126,12 @@ public class ClassCoverlapScorerTest {
 	public void testScoreOntologySetFromScratchWithInvalidInputs() {
 		
 		//test for invalid inputs
-		(new ClassOverlapScorer()).score(s2, inputClassIdsNULL);
-		assertEquals( 0.0, s2.getScore(ScoreType.CLASS_OVERLAP), 0.0 );
-		(new ClassOverlapScorer()).score(moduleNULL, inputClassIds);
-		assertEquals( 0.0, s2.getScore(ScoreType.CLASS_OVERLAP), 0.0 );
-		(new ClassOverlapScorer()).score(moduleNULL, inputClassIdsNULL);
-		assertEquals( 0.0, s2.getScore(ScoreType.CLASS_OVERLAP), 0.0 );
+		(new ClassCoverageScorer(coverageLogger)).score(s2, inputClassIdsNULL);
+		assertEquals( 0.0,  s2.getScore(ScoreType.TERM_COVERAGE), 0.0 );
+		(new ClassCoverageScorer(coverageLogger)).score(moduleNULL, inputClassIds);
+		assertEquals( 0.0,  s2.getScore(ScoreType.TERM_COVERAGE), 0.0 );
+		(new ClassCoverageScorer(coverageLogger)).score(moduleNULL, inputClassIdsNULL);
+		assertEquals( 0.0,  s2.getScore(ScoreType.TERM_COVERAGE), 0.0 );
 
 	}
 	
@@ -131,12 +139,12 @@ public class ClassCoverlapScorerTest {
 	public void testGetScoreAddedWithValidInputs() {
 		
 		//test correctness of the result for a valid input 
-		double score = (new ClassOverlapScorer()).getScoreAdded(s1, module2, inputClassIds).doubleValue();
-		assertEquals( -0.1, score, 0.0 );
+		double score = (new ClassCoverageScorer(coverageLogger)).getScoreAdded(s1, module2, inputClassIds).doubleValue();
+		assertEquals( 0.8, score, 0.0 );
 		
 		//after the second run, the score for s1 should have been already cached
-		score = (new ClassOverlapScorer()).getScoreAdded(s1, module2, inputClassIds).doubleValue();
-		assertEquals( -0.1, score, 0.0 );
+		score = (new ClassCoverageScorer(coverageLogger)).getScoreAdded(s1, module2, inputClassIds).doubleValue();
+		assertEquals( 0.8, score, 0.0 );
 		
 	}
 	
@@ -144,13 +152,13 @@ public class ClassCoverlapScorerTest {
 	public void testGetScoreAddedWithInvalidInputs() {
 		
 		//test for invalid inputs
-		Double score = (new ClassOverlapScorer()).getScoreAdded(sNULL, module2, inputClassIds);
+		Double score = (new ClassCoverageScorer(coverageLogger)).getScoreAdded(sNULL, module2, inputClassIds);
 		assertNull( score );
-		score = (new ClassOverlapScorer()).getScoreAdded(s1, moduleNULL, inputClassIds);
+		score = (new ClassCoverageScorer(coverageLogger)).getScoreAdded(s1, moduleNULL, inputClassIds);
 		assertNull( score );
-		score = (new ClassOverlapScorer()).getScoreAdded(s1, module2, inputClassIdsNULL);
+		score = (new ClassCoverageScorer(coverageLogger)).getScoreAdded(s1, module2, inputClassIdsNULL);
 		assertNull( score );
-		score = (new ClassOverlapScorer()).getScoreAdded(sNULL, moduleNULL, inputClassIdsNULL);
+		score = (new ClassCoverageScorer(coverageLogger)).getScoreAdded(sNULL, moduleNULL, inputClassIdsNULL);
 		assertNull( score );
 
 	}
@@ -159,12 +167,12 @@ public class ClassCoverlapScorerTest {
 	public void testGetScoreRemovedWithValidInputs() {
 		
 		//test correctness of the result for a valid input 
-		double score = (new ClassOverlapScorer()).getScoreRemoved(s2, module2, inputClassIds).doubleValue();
-		assertEquals( 0.0, score, 0.0 );
+		double score = (new ClassCoverageScorer(coverageLogger)).getScoreRemoved(s2, module2, inputClassIds).doubleValue();
+		assertEquals( 0.4, score, 0.0 );
 		
 		//after the second run, the score for 2 should have been already cached
-		score = (new ClassOverlapScorer()).getScoreRemoved(s2, module2, inputClassIds).doubleValue();
-		assertEquals( 0.0, score, 0.0 );
+		score = (new ClassCoverageScorer(coverageLogger)).getScoreRemoved(s2, module2, inputClassIds).doubleValue();
+		assertEquals( 0.4, score, 0.0 );
 		
 	}
 	
@@ -172,15 +180,15 @@ public class ClassCoverlapScorerTest {
 	public void testGetScoreRemovedWithInvalidInputs() {
 		
 		//test for invalid inputs
-		Double score = (new ClassOverlapScorer()).getScoreRemoved(sNULL, module2, inputClassIds);
+		Double score = (new ClassCoverageScorer(coverageLogger)).getScoreRemoved(sNULL, module2, inputClassIds);
 		assertNull( score );
-		score = (new ClassOverlapScorer()).getScoreRemoved(s2, moduleNULL, inputClassIds);
+		score = (new ClassCoverageScorer(coverageLogger)).getScoreRemoved(s2, moduleNULL, inputClassIds);
 		assertNull( score );
-		score = (new ClassOverlapScorer()).getScoreRemoved(s2, module2, inputClassIdsNULL);
+		score = (new ClassCoverageScorer(coverageLogger)).getScoreRemoved(s2, module2, inputClassIdsNULL);
 		assertNull( score );
-		score = (new ClassOverlapScorer()).getScoreRemoved(sNULL, moduleNULL, inputClassIdsNULL);
+		score = (new ClassCoverageScorer(coverageLogger)).getScoreRemoved(sNULL, moduleNULL, inputClassIdsNULL);
 		assertNull( score );
-		
+
 	}	
 	
 }

@@ -1,4 +1,4 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -7,11 +7,11 @@ import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multisets;
 
-import de.aquadiva.ontologyselection.base.data.IOntology;
-import de.aquadiva.ontologyselection.base.data.IOntologySet;
-import de.aquadiva.ontologyselection.base.data.InfoType;
-import de.aquadiva.ontologyselection.base.data.ScoreType;
-import de.aquadiva.ontologyselection.base.services.IVariableOntologyScorer;
+import de.aquadiva.joyce.base.data.IOntology;
+import de.aquadiva.joyce.base.data.IOntologySet;
+import de.aquadiva.joyce.base.data.InfoType;
+import de.aquadiva.joyce.base.data.ScoreType;
+import de.aquadiva.joyce.base.services.IVariableOntologyScorer;
 
 /**
  * Calculates the Overlap Score for a single ontology/ or a set of ontologies, which is defined

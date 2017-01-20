@@ -1,4 +1,4 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -14,9 +14,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.aquadiva.ontologyselection.base.data.OntologyModule;
-import de.aquadiva.ontologyselection.base.data.OntologySet;
-import de.aquadiva.ontologyselection.base.data.ScoreType;
+import de.aquadiva.joyce.base.data.OntologyModule;
+import de.aquadiva.joyce.base.data.OntologySet;
+import de.aquadiva.joyce.base.data.ScoreType;
+import de.aquadiva.joyce.core.services.ActiveCommunityScorer;
 
 public class ActiveCommunityScorerTest {
 	static OntologyModule moduleNULL;

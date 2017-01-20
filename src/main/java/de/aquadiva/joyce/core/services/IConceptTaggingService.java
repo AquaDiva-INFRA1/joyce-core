@@ -1,4 +1,4 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import com.google.common.collect.Multiset;
 

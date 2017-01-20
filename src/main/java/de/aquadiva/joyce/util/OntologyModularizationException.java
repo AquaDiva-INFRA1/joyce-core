@@ -1,4 +1,4 @@
-package de.aquadiva.ontologyselection.util;
+package de.aquadiva.joyce.util;
 
 public class OntologyModularizationException extends Exception {
 

@@ -1,4 +1,4 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -14,10 +14,12 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.aquadiva.ontologyselection.base.data.Ontology;
-import de.aquadiva.ontologyselection.base.data.OntologyModule;
-import de.aquadiva.ontologyselection.base.services.IOWLParsingService;
-import de.aquadiva.ontologyselection.util.OntologyModularizationException;
+import de.aquadiva.joyce.base.data.Ontology;
+import de.aquadiva.joyce.base.data.OntologyModule;
+import de.aquadiva.joyce.base.services.IOWLParsingService;
+import de.aquadiva.joyce.core.services.IOntologyModularizationService;
+import de.aquadiva.joyce.core.services.JoyceCoreModule;
+import de.aquadiva.joyce.util.OntologyModularizationException;
 
 public class OntologyModularizationServiceTest {
 

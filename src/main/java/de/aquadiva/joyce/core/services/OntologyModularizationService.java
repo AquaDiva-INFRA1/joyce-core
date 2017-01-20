@@ -1,4 +1,4 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -29,9 +29,9 @@ import FUSION.OPT.general.cc.Controller;
 
 import com.hp.hpl.jena.ontology.OntModel;
 
-import de.aquadiva.ontologyselection.base.data.Ontology;
-import de.aquadiva.ontologyselection.base.data.OntologyModule;
-import de.aquadiva.ontologyselection.util.OntologyModularizationException;
+import de.aquadiva.joyce.base.data.Ontology;
+import de.aquadiva.joyce.base.data.OntologyModule;
+import de.aquadiva.joyce.util.OntologyModularizationException;
 
 public class OntologyModularizationService implements
 		IOntologyModularizationService {

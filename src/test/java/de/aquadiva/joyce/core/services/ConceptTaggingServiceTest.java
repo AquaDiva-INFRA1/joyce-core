@@ -1,4 +1,4 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,7 +12,9 @@ import org.junit.Test;
 
 import com.google.common.collect.Multiset;
 
-import de.aquadiva.ontologyselection.JoyceSymbolConstants;
+import de.aquadiva.joyce.JoyceSymbolConstants;
+import de.aquadiva.joyce.core.services.IConceptTaggingService;
+import de.aquadiva.joyce.core.services.JoyceCoreModule;
 
 public class ConceptTaggingServiceTest {
 

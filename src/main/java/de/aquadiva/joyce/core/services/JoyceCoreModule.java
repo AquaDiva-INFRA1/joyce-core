@@ -1,19 +1,19 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.SubModule;
 
-import de.aquadiva.ontologyselection.base.services.IConstantOntologyScorer;
-import de.aquadiva.ontologyselection.base.services.IVariableOntologyScorer;
-import de.aquadiva.ontologyselection.base.services.JoyceBaseModule;
-import de.aquadiva.ontologyselection.core.services.ActiveCommunityScorer.ActiveCommunity;
-import de.aquadiva.ontologyselection.core.services.ClassCoverageScorer.ClassCoverage;
-import de.aquadiva.ontologyselection.core.services.ClassOverheadScorer.ClassOverhead;
-import de.aquadiva.ontologyselection.core.services.ClassOverlapScorer.ClassOverlap;
-import de.aquadiva.ontologyselection.core.services.DescriptivityScorer.Descriptivity;
-import de.aquadiva.ontologyselection.core.services.PopularityScorer.Popularity;
-import de.aquadiva.ontologyselection.core.services.RichnessScorer.Richness;
-import de.aquadiva.ontologyselection.core.services.UpToDateScorer.UpToDate;
+import de.aquadiva.joyce.base.services.IConstantOntologyScorer;
+import de.aquadiva.joyce.base.services.IVariableOntologyScorer;
+import de.aquadiva.joyce.base.services.JoyceBaseModule;
+import de.aquadiva.joyce.core.services.ActiveCommunityScorer.ActiveCommunity;
+import de.aquadiva.joyce.core.services.ClassCoverageScorer.ClassCoverage;
+import de.aquadiva.joyce.core.services.ClassOverheadScorer.ClassOverhead;
+import de.aquadiva.joyce.core.services.ClassOverlapScorer.ClassOverlap;
+import de.aquadiva.joyce.core.services.DescriptivityScorer.Descriptivity;
+import de.aquadiva.joyce.core.services.PopularityScorer.Popularity;
+import de.aquadiva.joyce.core.services.RichnessScorer.Richness;
+import de.aquadiva.joyce.core.services.UpToDateScorer.UpToDate;
 
 @SubModule(value = { JoyceBaseModule.class })
 public class JoyceCoreModule {

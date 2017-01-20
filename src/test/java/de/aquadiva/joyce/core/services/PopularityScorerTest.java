@@ -1,20 +1,18 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import static org.junit.Assert.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import de.aquadiva.ontologyselection.base.data.OntologyModule;
-import de.aquadiva.ontologyselection.base.data.OntologySet;
-import de.aquadiva.ontologyselection.base.data.ScoreType;
+import de.aquadiva.joyce.base.data.OntologyModule;
+import de.aquadiva.joyce.base.data.OntologySet;
+import de.aquadiva.joyce.base.data.ScoreType;
+import de.aquadiva.joyce.core.services.PopularityScorer;
 
-public class UpToDateScorerTest {
+public class PopularityScorerTest {
 	static OntologyModule moduleNULL;
 	static OntologyModule module1;
 	static OntologyModule module2;
@@ -26,8 +24,6 @@ public class UpToDateScorerTest {
 	static OntologySet s3;
 	static OntologySet s4;
 	static OntologySet s5;
-	static Date currentDate;
-	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	
 	//TODO: test with real input ontologies
 	
@@ -36,15 +32,9 @@ public class UpToDateScorerTest {
 				
 		// ONTOLOGY MODULE NULL: a null module
 		
-		// ONTOLOGY MODULE 1: latest release from 2014/10/15 10:15:45
+		// ONTOLOGY MODULE 1: 0 referencing projects
 		module1 = new OntologyModule();
-		Date d1 = null;
-		try {
-			d1 = sdf.parse("2014/10/15 10:15:45");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		module1.setLatestReleaseDate(d1);
+		module1.setNumberOfReferencingProjects(0);
 		
 		// uncomment this, if you want to allow for multiple occurences of the same class in one ontology/module
 		// ONTOLOGY MODULE 2: latest release from today
@@ -56,14 +46,13 @@ public class UpToDateScorerTest {
 //		Date d2 = new Date();
 //		module2.setLatestReleaseDate(d2);
 		
-		// ONTOLOGY MODULE 2: latest release from today
+		// ONTOLOGY MODULE 2: 0 referencing projects
 		HashSet<String> moduleClassIds2 = new HashSet<String>();
 		moduleClassIds2.add("class 1");
 		moduleClassIds2.add("class 3");
 		module2 = new OntologyModule();
 		module2.setClassIds(moduleClassIds2);
-		Date d2 = new Date();
-		module2.setLatestReleaseDate(d2);
+		module2.setNumberOfReferencingProjects(0);
 
 		// uncomment this, if you want to allow for multiple occurences of the same class in one ontology/module
 		// ONTOLOGY MODULE 3: latest release from 1969/01/01 00:00:00 (before 1970/01/01 00:00:00)
@@ -80,19 +69,13 @@ public class UpToDateScorerTest {
 //		}
 //		module3.setLatestReleaseDate(d3);
 
-		// ONTOLOGY MODULE 3: latest release from 1969/01/01 00:00:00 (before 1970/01/01 00:00:00)
+		// ONTOLOGY MODULE 3: 307 referencing projects (currently all)
 		HashSet<String> moduleClassIds3 = new HashSet<String>();
 		moduleClassIds3.add("class 1");
 		moduleClassIds3.add("class 2");
 		module3 = new OntologyModule();
 		module3.setClassIds(moduleClassIds3);
-		Date d3 = null;
-		try {
-			d3 = sdf.parse("1969/01/01 00:00:00");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		module3.setLatestReleaseDate(d3);		
+		module3.setNumberOfReferencingProjects(307);
 		
 		// ONTOLOGY MODULE 4: latest release date null
 		module4 = new OntologyModule();
@@ -130,13 +113,13 @@ public class UpToDateScorerTest {
 		
 		// test correctness of the result for a valid inputs
 		
-		// date after 1970/01/01 00:00:00
-		(new UpToDateScorer()).score(module2);
-		assertEquals( 1.0, module2.getScore(ScoreType.UP_TO_DATE).doubleValue(), 0.0 );
+		// 0 references
+		(new PopularityScorer()).score(module2);
+		assertEquals( 0.0, module2.getScore(ScoreType.POPULARITY).doubleValue(), 0.0 );
 		
-		// date before 1970/01/01 00:00:00
-		(new UpToDateScorer()).score(module2);
-		assertEquals( 0.0, module3.getScore(ScoreType.UP_TO_DATE).doubleValue(), 0.0 );
+		// 307 references
+		(new PopularityScorer()).score(module3);
+		assertEquals( 1.0, module3.getScore(ScoreType.POPULARITY).doubleValue(), 0.0 );
 
 	}
 	
@@ -146,11 +129,11 @@ public class UpToDateScorerTest {
 		// test for invalid inputs
 		
 		// input ontology NULL
-		(new UpToDateScorer()).score(moduleNULL);
+		(new PopularityScorer()).score(moduleNULL);
 		
 		// latest release date null
-		(new UpToDateScorer()).score(module4);
-		assertEquals( 0.0, module4.getScore(ScoreType.UP_TO_DATE).doubleValue(), 0.0 );
+		(new PopularityScorer()).score(module4);
+		assertEquals( 0.0, module4.getScore(ScoreType.POPULARITY).doubleValue(), 0.0 );
 
 	}
 	
@@ -159,8 +142,8 @@ public class UpToDateScorerTest {
 		
 		// test correctness of the result for a valid input 
 		
-		(new UpToDateScorer()).score(s2);
-		assertEquals( 0.5 , s2.getScore(ScoreType.UP_TO_DATE).doubleValue(), 0.0 );
+		(new PopularityScorer()).score(s2);
+		assertEquals( 0.5 , s2.getScore(ScoreType.POPULARITY).doubleValue(), 0.0 );
 		
 	}
 	
@@ -168,19 +151,19 @@ public class UpToDateScorerTest {
 	public void testScoreOntologySetFromScratchWithInvalidInputs() {
 
 		// set is null
-		(new UpToDateScorer()).score(sNULL);
+		(new PopularityScorer()).score(sNULL);
 		
 		// set contains no ontologies
-		(new UpToDateScorer()).score(s1);
-		assertEquals( 0.0 , s1.getScore(ScoreType.UP_TO_DATE).doubleValue(), 0.0 );
+		(new PopularityScorer()).score(s1);
+		assertEquals( 0.0 , s1.getScore(ScoreType.POPULARITY).doubleValue(), 0.0 );
 		
 		// an ontology is null
-		(new UpToDateScorer()).score(s3);
-		assertEquals( 0.0 , s3.getScore(ScoreType.UP_TO_DATE).doubleValue(), 0.0 );
+		(new PopularityScorer()).score(s3);
+		assertEquals( 0.0 , s3.getScore(ScoreType.POPULARITY).doubleValue(), 0.0 );
 		
 		// an ontology has no classes assigned to it
-		(new UpToDateScorer()).score(s4);
-		assertEquals( 0.0 , s4.getScore(ScoreType.UP_TO_DATE).doubleValue(), 0.0 );
+		(new PopularityScorer()).score(s4);
+		assertEquals( 0.0 , s4.getScore(ScoreType.POPULARITY).doubleValue(), 0.0 );
 		
 	}
 	
@@ -189,7 +172,7 @@ public class UpToDateScorerTest {
 		
 		// test correctness of the result for a valid input 
 		
-		Double score = (new UpToDateScorer()).getScoreAdded(s5, module3);
+		Double score = (new PopularityScorer()).getScoreAdded(s5, module3);
 		assertEquals( 0.5 , score.doubleValue(), 0.0 );
 		
 	}
@@ -200,19 +183,19 @@ public class UpToDateScorerTest {
 		// test for invalid inputs
 		
 		// set is null
-		Double score = (new UpToDateScorer()).getScoreAdded(sNULL, module3);
+		Double score = (new PopularityScorer()).getScoreAdded(sNULL, module3);
 		assertNull( score );
 		
 		// set contains no ontologies
-		score = (new UpToDateScorer()).getScoreAdded(s1, module3);
+		score = (new PopularityScorer()).getScoreAdded(s1, module3);
 		assertNull( score );
 		
 		// an ontology is null
-		score = (new UpToDateScorer()).getScoreAdded(s5, moduleNULL);
+		score = (new PopularityScorer()).getScoreAdded(s5, moduleNULL);
 		assertNull( score );
 		
 		// an ontology has no classes assigned to it
-		score = (new UpToDateScorer()).getScoreAdded(s4, module3);
+		score = (new PopularityScorer()).getScoreAdded(s4, module3);
 		assertNull( score );
 
 	}
@@ -222,8 +205,8 @@ public class UpToDateScorerTest {
 		
 		// test correctness of the result for a valid input 
 		
-		Double score = (new UpToDateScorer()).getScoreRemoved(s2, module3);
-		assertEquals( 1.0 , score.doubleValue(), 0.0 );
+		Double score = (new PopularityScorer()).getScoreRemoved(s2, module3);
+		assertEquals( 0.0 , score.doubleValue(), 0.0 );
 		
 	}
 	
@@ -233,19 +216,19 @@ public class UpToDateScorerTest {
 		// test for invalid inputs
 		
 		// set is null
-		Double score = (new UpToDateScorer()).getScoreRemoved(sNULL, module3);
+		Double score = (new PopularityScorer()).getScoreRemoved(sNULL, module3);
 		assertNull( score );
 		
 		// set contains no ontologies
-		score = (new UpToDateScorer()).getScoreRemoved(s1, module3);
+		score = (new PopularityScorer()).getScoreRemoved(s1, module3);
 		assertNull( score );
 		
 		// an ontology is null
-		score = (new UpToDateScorer()).getScoreRemoved(s5, moduleNULL);
+		score = (new PopularityScorer()).getScoreRemoved(s5, moduleNULL);
 		assertNull( score );
 		
 		// an ontology has no classes assigned to it
-		score = (new UpToDateScorer()).getScoreRemoved(s4, module3);
+		score = (new PopularityScorer()).getScoreRemoved(s4, module3);
 		assertNull( score );
 		
 	}	

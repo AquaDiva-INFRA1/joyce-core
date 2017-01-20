@@ -1,4 +1,4 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,10 +12,10 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 
-import de.aquadiva.ontologyselection.base.data.IOntology;
-import de.aquadiva.ontologyselection.base.data.IOntologySet;
-import de.aquadiva.ontologyselection.base.data.ScoreType;
-import de.aquadiva.ontologyselection.base.services.IConstantOntologyScorer;
+import de.aquadiva.joyce.base.data.IOntology;
+import de.aquadiva.joyce.base.data.IOntologySet;
+import de.aquadiva.joyce.base.data.ScoreType;
+import de.aquadiva.joyce.base.services.IConstantOntologyScorer;
 
 /**
  * Calculates the ActiveCommunityScore for a single ontology/module or set of

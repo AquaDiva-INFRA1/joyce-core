@@ -1,4 +1,4 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import org.apache.uima.resource.ExternalResourceDescription;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 
-import de.aquadiva.ontologyselection.JoyceSymbolConstants;
+import de.aquadiva.joyce.JoyceSymbolConstants;
 import de.julielab.jcore.ae.lingpipegazetteer.chunking.ChunkerProviderImplAlt;
 import de.julielab.jcore.ae.lingpipegazetteer.uima.GazetteerAnnotator;
 import de.julielab.jcore.types.OntClassMention;

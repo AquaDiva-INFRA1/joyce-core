@@ -1,4 +1,4 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,11 +19,11 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.slf4j.Logger;
 
-import de.aquadiva.ontologyselection.base.data.IOntology;
-import de.aquadiva.ontologyselection.base.data.IOntologySet;
-import de.aquadiva.ontologyselection.base.data.ScoreType;
-import de.aquadiva.ontologyselection.base.services.IConstantOntologyScorer;
-import de.aquadiva.ontologyselection.base.services.IOWLParsingService;
+import de.aquadiva.joyce.base.data.IOntology;
+import de.aquadiva.joyce.base.data.IOntologySet;
+import de.aquadiva.joyce.base.data.ScoreType;
+import de.aquadiva.joyce.base.services.IConstantOntologyScorer;
+import de.aquadiva.joyce.base.services.IOWLParsingService;
 
 public class RichnessScorer implements IConstantOntologyScorer {
 

@@ -1,4 +1,4 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import static org.junit.Assert.*;
 
@@ -9,9 +9,10 @@ import org.junit.Test;
 
 import com.google.common.collect.HashMultiset;
 
-import de.aquadiva.ontologyselection.base.data.OntologyModule;
-import de.aquadiva.ontologyselection.base.data.OntologySet;
-import de.aquadiva.ontologyselection.base.data.ScoreType;
+import de.aquadiva.joyce.base.data.OntologyModule;
+import de.aquadiva.joyce.base.data.OntologySet;
+import de.aquadiva.joyce.base.data.ScoreType;
+import de.aquadiva.joyce.core.services.ClassOverheadScorer;
 
 public class ClassOverheadScorerTest {
 	static HashMultiset<String> inputClassIds;

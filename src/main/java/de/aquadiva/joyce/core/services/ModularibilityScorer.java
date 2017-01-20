@@ -1,13 +1,13 @@
-package de.aquadiva.ontologyselection.core.services;
+package de.aquadiva.joyce.core.services;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import com.google.common.collect.Multiset;
 
-import de.aquadiva.ontologyselection.base.data.IOntology;
-import de.aquadiva.ontologyselection.base.data.IOntologySet;
-import de.aquadiva.ontologyselection.base.services.IVariableOntologyScorer;
+import de.aquadiva.joyce.base.data.IOntology;
+import de.aquadiva.joyce.base.data.IOntologySet;
+import de.aquadiva.joyce.base.services.IVariableOntologyScorer;
 
 /**
  * @deprecated We no longer aim at scoring ontologies regarding their modularizability but pre-modularize the ontologies
