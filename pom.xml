@@ -27,16 +27,16 @@
 		<jcore-version>2.2.0</jcore-version>
 	</properties>
 	<dependencies>
-		<dependency>
+      		<dependency>
 			<groupId>de.aquadiva</groupId>
 			<artifactId>joyce-base</artifactId>
 			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
+		</dependency> 
+	<!--	<dependency>
 			<groupId>de.aquadiva</groupId>
 			<artifactId>falcon</artifactId>
 			<version>1.0</version>
-		</dependency>
+		</dependency> -->
                  <dependency>
 		  <groupId>de.aquadiva</groupId>
 		 <artifactId>matrix</artifactId>
