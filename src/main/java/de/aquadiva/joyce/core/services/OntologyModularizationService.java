@@ -23,11 +23,12 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.slf4j.Logger;
 
-import FUSION.OPT.algorithm.SeeCOnt.Findk.FindOptimalCluster;
+/*import FUSION.OPT.algorithm.SeeCOnt.Findk.FindOptimalCluster;
 import FUSION.OPT.algorithm.SeeCOnt.Cluster;
-import FUSION.OPT.general.cc.Controller;
-
-import com.hp.hpl.jena.ontology.OntModel;
+import FUSION.OPT.general.cc.Controller;*/
+import fusion.oapt.algorithm.partitioner.SeeCOnt.Findk.FindOptimalCluster;
+import fusion.oapt.general.cc.Controller;
+import org.apache.jena.ontology.OntModel;
 
 import de.aquadiva.joyce.base.data.Ontology;
 import de.aquadiva.joyce.base.data.OntologyModule;
