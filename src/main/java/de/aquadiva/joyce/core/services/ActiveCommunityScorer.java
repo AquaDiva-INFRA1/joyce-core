@@ -165,7 +165,7 @@ public class ActiveCommunityScorer implements IConstantOntologyScorer {
 	@Override
 	public Double getScoreAdded(IOntologySet s, IOntology o) {
 
-		if (s != null && o != null && s.getOntologies() != null) {
+		if (s != null && o != null && s.getOntologies() != null && !s.getOntologies().isEmpty()) {
 
 			// it's not worth the effort for this kind of score, just use
 			// this.score(IOntologySet s)
