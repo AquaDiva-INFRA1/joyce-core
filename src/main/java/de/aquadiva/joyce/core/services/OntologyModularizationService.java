@@ -52,7 +52,7 @@ public class OntologyModularizationService implements
 		Future<List<OntologyModule>> modulesFuture = executor.submit(worker);
 		try {
 			// TODO raise time and write out which ontology took how long
-			return modulesFuture.get(120, TimeUnit.MINUTES);
+			return modulesFuture.get(120, TimeUnit.DAYS);
 		} catch (InterruptedException | ExecutionException e) {
 			throw new OntologyModularizationException(
 					"Exception happened during modularization: "
