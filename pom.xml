@@ -32,12 +32,7 @@
 			<artifactId>joyce-base</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency> 
-	<!--	<dependency>
-			<groupId>de.aquadiva</groupId>
-			<artifactId>falcon</artifactId>
-			<version>1.0</version>
-		</dependency> -->
-                 <dependency>
+	     <dependency>
 		  <groupId>de.aquadiva</groupId>
 		 <artifactId>matrix</artifactId>
 		 <scope>system</scope> <systemPath>${basedir}/external-jars/de/aquadiva/matrix/1.0/matrix.jar</systemPath> 
@@ -49,11 +44,27 @@
 			<scope>system</scope> <systemPath>${basedir}/external-jars/de/aquadiva/ws4j/1.0.0/ws4j-1.0.1.jar</systemPath>
 			<version>1.0.0</version>
 		</dependency>
-		<dependency>
+	  	<dependency>
 			<groupId>de.aquadiva</groupId>
 			<artifactId>OPT</artifactId>
-			<version>2.0</version>
-		</dependency>
+		 <!--      <scope>system</scope> <systemPath>${basedir}/external-jars/de/aquadiva/OPT/2.1/OPT-2.1.jar</systemPath>-->
+			<version>2.1</version>
+		</dependency>  
+		
+		<dependency>
+			<groupId>de.aquadiva</groupId>
+			<artifactId>agg</artifactId>
+		       <scope>system</scope> <systemPath>${basedir}/external-jars/de/aquadiva/agg/1.0/agg-1.0.jar</systemPath>
+			<version>1.0</version>
+		</dependency> 
+		
+		<dependency>
+			<groupId>de.aquadiva</groupId>
+			<artifactId>jung</artifactId>
+		       <scope>system</scope> <systemPath>${basedir}/external-jars/de/aquadiva/jung/1.0/jung-1.5.4.jar</systemPath>
+			<version>1.5.4</version>
+		</dependency>   
+		
 		<dependency>
 			<groupId>de.julielab</groupId>
 			<artifactId>jcore-lingpipe-gazetteer-ae</artifactId>
@@ -77,6 +88,12 @@
     <version>3.1.1</version>
 </dependency>	
 	
+<!--  	 <dependency>
+    <groupId>net.sourceforge.owlapi</groupId>
+    <artifactId>owlapi-distribution</artifactId>
+    <version>3.5.2</version>
+</dependency>  -->
+
 	<dependency>
     <groupId>dom4j</groupId>
     <artifactId>dom4j</artifactId>
@@ -118,6 +135,39 @@
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-lang3</artifactId>
     <version>3.5</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.jdom/jdom -->
+<dependency>
+    <groupId>org.jdom</groupId>
+    <artifactId>jdom</artifactId>
+    <version>2.0.2</version>
+</dependency>
+<dependency>
+    <groupId>me.shib.java.lib</groupId>
+    <artifactId>diction</artifactId>
+    <version>0.1.0</version>
+</dependency>
+<dependency>
+    <groupId>fr.lirmm.yamplusplus</groupId>
+    <artifactId>yampp-ls</artifactId>
+    <version>0.1.1</version>
+    <exclusions>
+      <exclusion> 
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+      </exclusion>
+      <exclusion> 
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+      </exclusion>
+    </exclusions> 
+</dependency>
+
+  <dependency>
+    <groupId>net.sf.jwordnet</groupId>
+    <artifactId>jwnl</artifactId>
+    <version>1.3.3</version>
 </dependency>
 	</dependencies>
 </project>
