@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MappingOntology>
+  <CommonTerms>
+    <term value="Administrator" type="Class" />
+    <term value="Person" type="Class" />
+    <term value="Review" type="Class" />
+    <term value="Conference" type="Class" />
+    <term value="Author" type="Class" />
+    <term value="Paper" type="Class" />
+    <term value="Document" type="Class" />
+    <term value="User" type="Class" />
+  </CommonTerms>
+  <EquivalentTerms>
+    <term value="Reviewer" type="Class" equivalent="Review" />
+    <term value="addedBy" type="ObjectProperty" equivalent="added_by" />
+  </EquivalentTerms>
+  <SynonymTerms>
+    <term value="Chairman" type="Class" synonym="Administrator" />
+    <term value="Rejection" type="Class" synonym="Activity" />
+    <term value="Co-author" type="Class" synonym="Author" />
+  </SynonymTerms>
+  <CommonTerms>
+    <term value="Review" type="Class" />
+    <term value="Conference" type="Class" />
+    <term value="Paper" type="Class" />
+    <term value="Activity" type="Class" />
+    <term value="Group_Email" type="Class" />
+    <term value="Review_Form" type="Class" />
+    <term value="URL" type="Class" />
+    <term value="Notification_Email" type="Class" />
+    <term value="has_result" type="ObjectProperty" />
+  </CommonTerms>
+  <EquivalentTerms>
+    <term value="ProgramCommitteeMember" type="Class" equivalent="Program_Committee_member" />
+    <term value="PaperAbstract" type="Class" equivalent="abstract_of_paper" />
+    <term value="ProgramCommitteeChair" type="Class" equivalent="Program_Committee_Chair" />
+    <term value="Preview" type="Class" equivalent="review" />
+    <term value="hasAuthor" type="ObjectProperty" equivalent="has_author" />
+  </EquivalentTerms>
+  <SynonymTerms>
+    <term value="Rejection" type="Class" synonym="activity" />
+    <term value="Assistance" type="Class" synonym="classification" />
+    <term value="Symposium" type="Class" synonym="conference" />
+    <term value="Request" type="Class" synonym="topic" />
+    <term value="Role" type="Class" synonym="activity" />
+    <term value="Event" type="Class" synonym="activity" />
+    <term value="Submission" type="Class" synonym="topic" />
+    <term value="name" type="DataProperty" synonym="first_name" />
+  </SynonymTerms>
+  <CommonTerms>
+    <term value="Administrator" type="Class" />
+    <term value="Person" type="Class" />
+    <term value="Conference" type="Class" />
+    <term value="Author" type="Class" />
+    <term value="Paper" type="Class" />
+    <term value="Short_Paper" type="Class" />
+    <term value="Event" type="Class" />
+    <term value="Workshop" type="Class" />
+    <term value="topic" type="Class" />
+    <term value="conference" type="Class" />
+    <term value="paper" type="Class" />
+    <term value="writtenBy" type="ObjectProperty" />
+  </CommonTerms>
+  <EquivalentTerms />
+  <SynonymTerms>
+    <term value="Chairman" type="Class" synonym="Person" />
+    <term value="Rejection" type="Class" synonym="Event" />
+    <term value="Co-author" type="Class" synonym="Author" />
+    <term value="User" type="Class" synonym="Scholar" />
+    <term value="Assistance" type="Class" synonym="Contribution" />
+    <term value="Symposium" type="Class" synonym="Conference" />
+    <term value="Activity" type="Class" synonym="Contribution" />
+    <term value="Request" type="Class" synonym="Topic" />
+    <term value="Submission" type="Class" synonym="Topic" />
+    <term value="institute" type="Class" synonym="Organization" />
+    <term value="activity" type="Class" synonym="Contribution" />
+  </SynonymTerms>
+  <CommonTerms>
+    <term value="Person" type="Class" />
+    <term value="Review" type="Class" />
+    <term value="Conference" type="Class" />
+    <term value="Author" type="Class" />
+    <term value="Document" type="Class" />
+    <term value="Abstract" type="Class" />
+    <term value="Event" type="Class" />
+    <term value="conference" type="Class" />
+    <term value="review" type="Class" />
+    <term value="article" type="Class" />
+    <term value="Event" type="Class" />
+    <term value="Person" type="Class" />
+    <term value="Participant" type="Class" />
+    <term value="Conference" type="Class" />
+    <term value="Author" type="Class" />
+    <term value="has_author" type="ObjectProperty" />
+  </CommonTerms>
+  <EquivalentTerms>
+    <term value="Preview" type="Class" equivalent="review" />
+    <term value="hasAuthor" type="ObjectProperty" equivalent="has_author" />
+    <term value="writeReview" type="ObjectProperty" equivalent="writes_review" />
+  </EquivalentTerms>
+  <SynonymTerms>
+    <term value="Administrator" type="Class" synonym="person" />
+    <term value="Chairman" type="Class" synonym="person" />
+    <term value="Rejection" type="Class" synonym="event" />
+    <term value="Co-author" type="Class" synonym="author" />
+    <term value="User" type="Class" synonym="person" />
+    <term value="Symposium" type="Class" synonym="conference" />
+    <term value="Activity" type="Class" synonym="event" />
+    <term value="activity" type="Class" synonym="event" />
+    <term value="Scholar" type="Class" synonym="person" />
+    <term value="Member" type="Class" synonym="person" />
+    <term value="Student" type="Class" synonym="person" />
+    <term value="Assistant" type="Class" synonym="person" />
+    <term value="Tutorial" type="Class" synonym="session" />
+  </SynonymTerms>
+  <CommonTerms>
+    <term value="Person" type="Class" />
+    <term value="Review" type="Class" />
+    <term value="Conference" type="Class" />
+    <term value="Author" type="Class" />
+    <term value="Paper" type="Class" />
+    <term value="Document" type="Class" />
+    <term value="ConferenceChair" type="Class" />
+    <term value="Workshop" type="Class" />
+    <term value="topic" type="Class" />
+    <term value="conference" type="Class" />
+    <term value="review" type="Class" />
+    <term value="paper" type="Class" />
+    <term value="Organization" type="Class" />
+    <term value="Workshop" type="Class" />
+    <term value="Person" type="Class" />
+    <term value="Reception" type="Class" />
+    <term value="Conference" type="Class" />
+    <term value="Country" type="Class" />
+    <term value="Topic" type="Class" />
+    <term value="Paper" type="Class" />
+    <term value="Author" type="Class" />
+    <term value="document" type="Class" />
+    <term value="person" type="Class" />
+    <term value="author" type="Class" />
+    <term value="review" type="Class" />
+    <term value="reviewer" type="Class" />
+    <term value="conference" type="Class" />
+    <term value="hasCountry" type="ObjectProperty" />
+    <term value="hasTopic" type="ObjectProperty" />
+    <term value="hasStreet" type="DataProperty" />
+    <term value="hasFirstName" type="DataProperty" />
+    <term value="hasPhone" type="DataProperty" />
+    <term value="hasPostalCode" type="DataProperty" />
+    <term value="hasEmail" type="DataProperty" />
+  </CommonTerms>
+  <EquivalentTerms>
+    <term value="Preview" type="Class" equivalent="Review" />
+    <term value="Review_Form" type="Class" equivalent="ReviewForm" />
+    <term value="Rejected_Paper" type="Class" equivalent="RejectedPaper" />
+    <term value="review_form" type="Class" equivalent="ReviewForm" />
+    <term value="Accepted_Paper" type="Class" equivalent="AcceptedPaper" />
+    <term value="Social_event" type="Class" equivalent="SocialEvent" />
+    <term value="program" type="Class" equivalent="Programme" />
+    <term value="has_program" type="ObjectProperty" equivalent="hasProgramme" />
+  </EquivalentTerms>
+  <SynonymTerms>
+    <term value="Administrator" type="Class" synonym="Person" />
+    <term value="Chairman" type="Class" synonym="Person" />
+    <term value="Co-author" type="Class" synonym="Author" />
+    <term value="User" type="Class" synonym="Person" />
+    <term value="Assistance" type="Class" synonym="Sponsorship" />
+    <term value="Symposium" type="Class" synonym="Conference" />
+    <term value="Activity" type="Class" synonym="Sponsorship" />
+    <term value="Request" type="Class" synonym="Topic" />
+    <term value="Submission" type="Class" synonym="Topic" />
+    <term value="institute" type="Class" synonym="Organization" />
+    <term value="activity" type="Class" synonym="Sponsorship" />
+    <term value="Trip" type="Class" synonym="Excursion" />
+    <term value="Participant" type="Class" synonym="Person" />
+    <term value="Member" type="Class" synonym="Person" />
+    <term value="Student" type="Class" synonym="Person" />
+    <term value="Assistant" type="Class" synonym="Person" />
+    <term value="Company" type="Class" synonym="Organization" />
+    <term value="participant" type="Class" synonym="Person" />
+  </SynonymTerms>
+  <CommonTerms>
+    <term value="Person" type="Class" />
+    <term value="Review" type="Class" />
+    <term value="Conference" type="Class" />
+    <term value="Paper" type="Class" />
+    <term value="Document" type="Class" />
+    <term value="Abstract" type="Class" />
+    <term value="Event" type="Class" />
+    <term value="Workshop" type="Class" />
+    <term value="Research_Topic" type="Class" />
+    <term value="Rejected_Paper" type="Class" />
+    <term value="conference" type="Class" />
+    <term value="review" type="Class" />
+    <term value="paper" type="Class" />
+    <term value="Accepted_Paper" type="Class" />
+    <term value="Workshop" type="Class" />
+    <term value="Event" type="Class" />
+    <term value="Person" type="Class" />
+    <term value="Student" type="Class" />
+    <term value="Conference" type="Class" />
+    <term value="Social_event" type="Class" />
+    <term value="Paper" type="Class" />
+    <term value="Tutorial" type="Class" />
+    <term value="University" type="Class" />
+    <term value="abstract" type="Class" />
+    <term value="document" type="Class" />
+    <term value="person" type="Class" />
+    <term value="session" type="Class" />
+    <term value="event" type="Class" />
+    <term value="review" type="Class" />
+    <term value="conference" type="Class" />
+    <term value="Person" type="Class" />
+    <term value="Presenter" type="Class" />
+    <term value="Workshop" type="Class" />
+    <term value="Review" type="Class" />
+    <term value="Conference" type="Class" />
+    <term value="Paper" type="Class" />
+    <term value="Document" type="Class" />
+    <term value="writtenBy" type="ObjectProperty" />
+    <term value="writtenBy" type="ObjectProperty" />
+  </CommonTerms>
+  <EquivalentTerms>
+    <term value="Preview" type="Class" equivalent="Review" />
+    <term value="Organization" type="Class" equivalent="Organisation" />
+    <term value="reviewer" type="Class" equivalent="Review" />
+    <term value="Reviewer" type="Class" equivalent="Review" />
+    <term value="SessionChair" type="Class" equivalent="Session_Chair" />
+    <term value="ConferenceSession" type="Class" equivalent="Conference_Session" />
+    <term value="Organization" type="Class" equivalent="Organisation" />
+    <term value="TPCMember" type="Class" equivalent="PC_Member" />
+    <term value="SocialEvent" type="Class" equivalent="Social_Event" />
+    <term value="AcceptedPaper" type="Class" equivalent="Accepted_Paper" />
+    <term value="review_written_by" type="ObjectProperty" equivalent="reviewWrittenBy" />
+    <term value="has_reviewer" type="ObjectProperty" equivalent="hasReviewer" />
+    <term value="isLocationOf" type="ObjectProperty" equivalent="locationOf" />
+  </EquivalentTerms>
+  <SynonymTerms>
+    <term value="Administrator" type="Class" synonym="Person" />
+    <term value="Chairman" type="Class" synonym="Person" />
+    <term value="Author" type="Class" synonym="Presenter" />
+    <term value="User" type="Class" synonym="Presenter" />
+    <term value="Symposium" type="Class" synonym="Conference" />
+    <term value="Activity" type="Class" synonym="Event" />
+    <term value="notification" type="Class" synonym="Proceedings" />
+    <term value="activity" type="Class" synonym="Event" />
+    <term value="Scholar" type="Class" synonym="Person" />
+    <term value="Participant" type="Class" synonym="Person" />
+    <term value="Member" type="Class" synonym="Person" />
+    <term value="Assistant" type="Class" synonym="Person" />
+    <term value="Author" type="Class" synonym="Presenter" />
+    <term value="author" type="Class" synonym="Presenter" />
+    <term value="program" type="Class" synonym="Abstract" />
+    <term value="Author" type="Class" synonym="Presenter" />
+    <term value="Place" type="Class" synonym="Location" />
+  </SynonymTerms>
+  <CommonTerms>
+    <term value="Person" type="Class" />
+    <term value="Review" type="Class" />
+    <term value="Author" type="Class" />
+    <term value="Document" type="Class" />
+    <term value="Registration" type="Class" />
+    <term value="Activity" type="Class" />
+    <term value="Submission" type="Class" />
+    <term value="review" type="Class" />
+    <term value="activity" type="Class" />
+    <term value="Person" type="Class" />
+    <term value="City" type="Class" />
+    <term value="Author" type="Class" />
+    <term value="Tutorial" type="Class" />
+    <term value="document" type="Class" />
+    <term value="person" type="Class" />
+    <term value="session" type="Class" />
+    <term value="author" type="Class" />
+    <term value="review" type="Class" />
+    <term value="reviewer" type="Class" />
+    <term value="Person" type="Class" />
+    <term value="Author" type="Class" />
+    <term value="Reviewer" type="Class" />
+    <term value="Review" type="Class" />
+    <term value="Place" type="Class" />
+    <term value="Document" type="Class" />
+    <term value="Session" type="Class" />
+    <term value="Person" type="Class" />
+    <term value="Review" type="Class" />
+    <term value="Session_Chair" type="Class" />
+    <term value="Tutorial" type="Class" />
+    <term value="Document" type="Class" />
+    <term value="send" type="ObjectProperty" />
+    <term value="Mexico" type="Individual" />
+  </CommonTerms>
+  <EquivalentTerms>
+    <term value="Preview" type="Class" equivalent="Review" />
+    <term value="CoffeeBreak" type="Class" equivalent="Coffee_break" />
+    <term value="SessionChair" type="Class" equivalent="Session_chair" />
+    <term value="Sponsorship" type="Class" equivalent="Sponzorship" />
+    <term value="writes" type="ObjectProperty" equivalent="write" />
+    <term value="isWrittenBy" type="ObjectProperty" equivalent="is_writen_by" />
+  </EquivalentTerms>
+  <SynonymTerms>
+    <term value="Administrator" type="Class" synonym="Person" />
+    <term value="Chairman" type="Class" synonym="Person" />
+    <term value="Rejection" type="Class" synonym="Activity" />
+    <term value="Bid" type="Class" synonym="Lecture" />
+    <term value="User" type="Class" synonym="Author" />
+    <term value="Assistance" type="Class" synonym="Activity" />
+    <term value="Request" type="Class" synonym="Submission" />
+    <term value="Role" type="Class" synonym="Activity" />
+    <term value="Event" type="Class" synonym="Activity" />
+    <term value="Account" type="Class" synonym="Credit_card" />
+    <term value="classification" type="Class" synonym="Activity" />
+    <term value="topic" type="Class" synonym="Submission" />
+    <term value="paper" type="Class" synonym="Card" />
+    <term value="article" type="Class" synonym="Publication" />
+    <term value="Contribution" type="Class" synonym="Activity" />
+    <term value="Event" type="Class" synonym="Activity" />
+    <term value="Scholar" type="Class" synonym="Person" />
+    <term value="Participant" type="Class" synonym="Person" />
+    <term value="Member" type="Class" synonym="Person" />
+    <term value="Student" type="Class" synonym="Person" />
+    <term value="Assistant" type="Class" synonym="Person" />
+    <term value="Topic" type="Class" synonym="Submission" />
+    <term value="Paper" type="Class" synonym="Card" />
+    <term value="event" type="Class" synonym="Activity" />
+    <term value="article" type="Class" synonym="Publication" />
+    <term value="Topic" type="Class" synonym="Submission" />
+    <term value="Presenter" type="Class" synonym="Speaker" />
+    <term value="Paper" type="Class" synonym="Card" />
+    <term value="Presenter" type="Class" synonym="Speaker" />
+    <term value="Student" type="Class" synonym="Person" />
+    <term value="Track" type="Class" synonym="City" />
+    <term value="Event" type="Class" synonym="Activity" />
+    <term value="Location" type="Class" synonym="City" />
+    <term value="Paper" type="Class" synonym="Card" />
+    <term value="Web_Site" type="Class" synonym="Computer" />
+  </SynonymTerms>
+</MappingOntology>
+

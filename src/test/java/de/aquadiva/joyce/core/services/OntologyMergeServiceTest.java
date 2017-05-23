@@ -1,13 +1,9 @@
 package de.aquadiva.joyce.core.services;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.util.List;
-
+import org.jdom.Content;
 import org.apache.tapestry5.ioc.Registry;
 import org.apache.tapestry5.ioc.RegistryBuilder;
 import org.junit.AfterClass;
@@ -15,15 +11,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.aquadiva.joyce.base.data.Ontology;
-import de.aquadiva.joyce.base.data.OntologyModule;
-import de.aquadiva.joyce.base.services.IOWLParsingService;
-import de.aquadiva.joyce.core.services.IOntologyModularizationService;
-import de.aquadiva.joyce.core.services.JoyceCoreModule;
-import de.aquadiva.joyce.util.OntologyModularizationException;
 
 
-public class OntologyModularizationServiceTest {
-
+public class OntologyMergeServiceTest {
+	
 	private static Registry registry;
 
 	@BeforeClass
@@ -36,9 +27,9 @@ public class OntologyModularizationServiceTest {
 		registry.shutdown();
 	}
 
-	@Test
-	public void testModularizeDirectory() throws OntologyModularizationException {
-		IOntologyModularizationService service = registry.getService(IOntologyModularizationService.class);
+/*	@Test
+	public void testMergeDirectory()  {
+		IOntologyMergeService service = registry.getService(IOntologyMergeService.class);
 		File dir = new File("src" + File.separator + "test" + File.separator + "resources" + File.separator + "owl");
 		File[] list = dir.listFiles(new FilenameFilter() {
 
@@ -54,40 +45,31 @@ public class OntologyModularizationServiceTest {
 				Ontology o = new Ontology();
 				o.setFile(owlFile.getAbsoluteFile());
 				o.setId(owlFile.getName());
-				List<OntologyModule> modules = service.modularize(o);
-				System.out.println(modules.size());
+				//List<OntologyModule> modules = service.modularize(o);
+				//System.out.println(modules.size());
 			} catch (Exception e) {
 				System.out.println(owlFile.getName() + " " + e.getMessage());
 				e.printStackTrace();
 			}
 		}
 
-	}
+	}*/
 
 	@Test
 	public void testModularizeSingleFile() throws Exception {
-		IOntologyModularizationService service = registry.getService(IOntologyModularizationService.class);
-		File owlFile = new File("src/test/resources/owl/ADO.owl");
+		//IOntologyMergeService service = registry.getService(IOntologyMergeService.class);
+		String path="D:/test_ont/test";
+		OntologyMergeService OMS=new OntologyMergeService();
+		OMS.merge(path);
+		//Ontology owl=service.merge(path);
+		/*File owlFile = new File("src/test/resources/owl/ADO.owl");
 		Ontology o = new Ontology();
 		o.setFile(owlFile);
 		o.setId(owlFile.getName());
 		List<OntologyModule> modules = service.modularize(o);
-		System.out.println(modules.size());
+		System.out.println(modules.size());*/
 
 	}
-	
-	/*@Test
-	public void testRunMainOAPT() throws Exception {
-		IOntologyModularizationService service = registry.getService(IOntologyModularizationService.class);
-		MainFrame main=new MainFrame();
-		main.main(null);
-		File owlFile = new File("src/test/resources/owl/ENVO.owl.gz");
-		Ontology o = new Ontology();
-		o.setFile(owlFile);
-		o.setId(owlFile.getName());
-		List<OntologyModule> modules = service.modularize(o);
-		System.out.println(modules.size());
 
-	}*/
 
 }
