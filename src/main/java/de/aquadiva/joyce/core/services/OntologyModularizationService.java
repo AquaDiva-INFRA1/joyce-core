@@ -34,8 +34,7 @@ import de.aquadiva.joyce.base.data.Ontology;
 import de.aquadiva.joyce.base.data.OntologyModule;
 import de.aquadiva.joyce.util.OntologyModularizationException;
 
-public class OntologyModularizationService implements
-		IOntologyModularizationService {
+public class OntologyModularizationService implements IOntologyModularizationService {
 
 	private ExecutorService executor;
 	private Logger log;
@@ -46,32 +45,24 @@ public class OntologyModularizationService implements
 	}
 
 	@Override
-	public List<OntologyModule> modularize(Ontology o)
-			throws OntologyModularizationException {
+	public List<OntologyModule> modularize(Ontology o) throws OntologyModularizationException {
 		ModularizationWorker worker = new ModularizationWorker(o);
 		Future<List<OntologyModule>> modulesFuture = executor.submit(worker);
 		try {
 			// TODO raise time and write out which ontology took how long
 			return modulesFuture.get(120, TimeUnit.DAYS);
 		} catch (InterruptedException | ExecutionException e) {
-			throw new OntologyModularizationException(
-					"Exception happened during modularization: "
-							+ e.getMessage(), e);
+			throw new OntologyModularizationException("Exception happened during modularization: " + e.getMessage(), e);
 		} catch (TimeoutException e) {
-			log.debug(
-					"Modularization of ontology {} timed out, no modules are created for this ontology.",
-					o.getId());
+			log.debug("Modularization of ontology {} timed out, no modules are created for this ontology.", o.getId());
 			modulesFuture.cancel(true);
 			throw new OntologyModularizationException(
-					"Modularization of ontology "
-							+ o.getId()
-							+ " timed out, no modules are created for this ontology.",
+					"Modularization of ontology " + o.getId() + " timed out, no modules are created for this ontology.",
 					e);
 		}
 	}
 
-	private class ModularizationWorker implements
-			Callable<List<OntologyModule>> {
+	private class ModularizationWorker implements Callable<List<OntologyModule>> {
 
 		private Ontology o;
 
@@ -84,82 +75,97 @@ public class OntologyModularizationService implements
 			long time = System.currentTimeMillis();
 			log.debug("Modularizing ontology {} in thread {}", o.getId(), Thread.currentThread().getName());
 			String sss = o.getFile().toString();
-			;
 			@SuppressWarnings("static-access")
+			
+			
+			// HERE
 			int n = FindOptimalCluster.FindOptimalClusterFunc(sss);
+			
 			log.debug("the number of modules\t{}", n);
 			deleteFile();
 			Controller cn = null;
 			try {
-				cn = new Controller(sss);
 				
+				// HERE
+				cn = new Controller(sss);
+
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-				throw new OntologyModularizationException("Modularization of ontology " + o.getId() + " failed because the Controller could not be created.", e1);
+				// e1.printStackTrace();
+				throw new OntologyModularizationException("Modularization of ontology " + o.getId()
+						+ " failed because the Controller could not be created.", e1);
 			}
-			int size=cn.getOntModel1().listClasses().toList().size();
-			System.out.println("the number of concepts\t"+size);
+			
+			// HERE
+			int size = cn.getOntModel1().listClasses().toList().size();
+			
+			System.out.println("the number of concepts\t" + size);
 			List<OntologyModule> list = null;
-			if(size>0 && n > 0){
-			cn.InitialRun(n, "SeeCOnt");
-			//HashMap<Integer, Cluster> sc = cn.getClustes();
-			//ArrayList<OntModel> models = cn.getModules();
-			String path = "temp";
-			File dir = new File(path);
-			File[] files = dir.listFiles();
-			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-			list = new ArrayList<OntologyModule>();
-			for (int i = 0; i < files.length; i++) {
-				File file = files[i];
-				try {
-					OWLOntology ontology = manager
-							.loadOntologyFromOntologyDocument(file);
-					String ids = file.toString();
-					log.debug(ids.substring(ids.lastIndexOf("\\") + 1)+"\t the file\t"+ids);
-					byte[] moduleData = null;
-					try (InputStream is = new FileInputStream(file)) {
-						// convert the ontology data into GZIP format
-						moduleData = IOUtils.toByteArray(is);
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						GZIPOutputStream os = new GZIPOutputStream(baos);
-						IOUtils.write(moduleData, os);
-						moduleData = baos.toByteArray();
+			// Samira: n always >= 1
+			if (size > 0 && n > 0) {
+				
+				// HERE
+				cn.InitialRun(n, "SeeCOnt");
+				// HashMap<Integer, Cluster> sc = cn.getClustes();
+				// ArrayList<OntModel> models = cn.getModules();
+				String path = "temp";
+				File dir = new File(path);
+				File[] moduleFiles = dir.listFiles();
+				OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+				list = new ArrayList<OntologyModule>();
+				for (int i = 0; i < moduleFiles.length; i++) {
+					File file = moduleFiles[i];
+					try {
+						OWLOntology ontology = manager.loadOntologyFromOntologyDocument(file);
+						String ids = file.toString();
+						log.debug(ids.substring(ids.lastIndexOf("\\") + 1) + "\t the file\t" + ids);
+						byte[] moduleData = null;
+						try (InputStream is = new FileInputStream(file)) {
+							// convert the ontology data into GZIP format
+							moduleData = IOUtils.toByteArray(is);
+							ByteArrayOutputStream baos = new ByteArrayOutputStream();
+							GZIPOutputStream os = new GZIPOutputStream(baos);
+							IOUtils.write(moduleData, os);
+							moduleData = baos.toByteArray();
+						}
+
+						/*
+						 * OntologyModule m = o.createModule(
+						 * 
+						 * OntologyModule m = o.createStaticModule(
+						 * 
+						 * ids.substring(ids.lastIndexOf("\\") + 1),
+						 * moduleData);
+						 */
+						// m.setOwlOntology(ontology);
+						Ontology onto = new Ontology();
+						onto.setOwlOntology(ontology);
+						byte[] ondata = onto.getOntologyData();
+						OntologyModule m = new OntologyModule();
+
+						// database storage (at the very least).
+						m.setOwlOntology(onto.getOwlOntology());
+						m.setOntologyData(ondata);
+
+						// the module ID
+						m.setId(ids.substring(ids.lastIndexOf("\\") + 1));
+						m.setFile(file);
+
+						m.setSourceOntology(o);
+						o.addModule(m);
+						// System.out.println("---\t "+m.getOwlOntology());
+						list.add(m);
+					} catch (OWLOntologyCreationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-
-					/*OntologyModule m = o.createModule(
-
-					OntologyModule m = o.createStaticModule(
-
-							ids.substring(ids.lastIndexOf("\\") + 1),
-							moduleData);*/
-					//m.setOwlOntology(ontology);
-					 Ontology onto = new Ontology();
-					 onto.setOwlOntology(ontology);
-					 byte[] ondata = onto.getOntologyData();
-					 OntologyModule m = new OntologyModule();
-
-					 //database storage (at the very least).
-					 m.setOwlOntology(onto.getOwlOntology());
-					 m.setOntologyData(ondata);
-
-					// the module ID
-					 m.setId(ids.substring(ids.lastIndexOf("\\") + 1));
-					 m.setFile(file);
-
-					 m.setSourceOntology(o);
-					 o.addModule(m);
-					// System.out.println("---\t "+m.getOwlOntology());
-					list.add(m);
-				} catch (OWLOntologyCreationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
-			}
 
-			time = System.currentTimeMillis() - time;
-			log.info("Modularization of ontology {}has been done! Took {}ms ({}s)", new Object[] {o.getId(), time, time / 1000});
-			deleteFile();}
+				time = System.currentTimeMillis() - time;
+				log.info("Modularization of ontology {}has been done! Took {}ms ({}s)",
+						new Object[] { o.getId(), time, time / 1000 });
+				deleteFile();
+			}
 			return list;
 		}
 
@@ -179,6 +185,4 @@ public class OntologyModularizationService implements
 		}
 	}
 
-	}
-
-
+}
