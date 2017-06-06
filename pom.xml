@@ -14,7 +14,7 @@
 		<repository>
 			<id>external-jars</id>
 			<name>External JAR Repo</name>
-			<url>file:${project.parent.basedir}/joyce-core/external-jars</url>
+			<url>file:../joyce-core/external-jars</url>
 			<snapshots>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
