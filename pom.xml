@@ -10,17 +10,6 @@
 	<artifactId>joyce-core</artifactId>
 	<name>AquaDiva Ontology Selection Core Module</name>
 	<description>The core module for the AquaDiva ontology selection, pulling together all submodules required for the full functionality of the ontology selection tool suite. This project could be used by another module intended for user presentation with a GUI, interactive scoring, selection manipulation, statistical presentation etc.</description>
-	<repositories>
-		<repository>
-			<id>external-jars</id>
-			<name>External JAR Repo</name>
-			<url>file:../joyce-core/external-jars</url>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-			</snapshots>
-		</repository>
-	</repositories>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -90,11 +79,6 @@
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-snowball</artifactId>
-			<version>3.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
