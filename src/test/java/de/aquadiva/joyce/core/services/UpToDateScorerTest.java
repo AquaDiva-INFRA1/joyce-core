@@ -156,16 +156,6 @@ public class UpToDateScorerTest {
 	}
 	
 	@Test
-	public void testScoreOntologySetFromScratchWithValidInputs() {
-		
-		// test correctness of the result for a valid input 
-		
-		(new UpToDateScorer()).score(s2);
-		assertEquals( 0.5 , s2.getScore(ScoreType.UP_TO_DATE).doubleValue(), 0.0 );
-		
-	}
-	
-	@Test
 	public void testScoreOntologySetFromScratchWithInvalidInputs() {
 
 		// set is null
@@ -182,16 +172,6 @@ public class UpToDateScorerTest {
 		// an ontology has no classes assigned to it
 		(new UpToDateScorer()).score(s4);
 		assertEquals( 0.0 , s4.getScore(ScoreType.UP_TO_DATE).doubleValue(), 0.0 );
-		
-	}
-	
-	@Test
-	public void testGetScoreAddedWithValidInputs() {
-		
-		// test correctness of the result for a valid input 
-		
-		Double score = (new UpToDateScorer()).getScoreAdded(s5, module3);
-		assertEquals( 0.5 , score.doubleValue(), 0.0 );
 		
 	}
 	
@@ -218,16 +198,6 @@ public class UpToDateScorerTest {
 
 	}
 
-	@Test
-	public void testGetScoreRemovedWithValidInputs() {
-		
-		// test correctness of the result for a valid input 
-		
-		Double score = (new UpToDateScorer()).getScoreRemoved(s2, module3);
-		assertEquals( 1.0 , score.doubleValue(), 0.0 );
-		
-	}
-	
 	@Test
 	public void testGetScoreRemovedWithInvalidInputs() {
 		

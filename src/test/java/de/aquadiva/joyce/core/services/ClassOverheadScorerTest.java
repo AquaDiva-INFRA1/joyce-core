@@ -111,15 +111,6 @@ public class ClassOverheadScorerTest {
 	}
 	
 	@Test
-	public void testScoreOntologySetFromScratchWithValidInputs() {
-		
-		//test correctness of the result for a valid input 
-		(new ClassOverheadScorer()).score(s2, inputClassIds);
-		assertEquals( -0.2, s2.getScore(ScoreType.CLASS_OVERHEAD).doubleValue(), 0.0 );
-		
-	}
-	
-	@Test
 	public void testScoreOntologySetFromScratchWithInvalidInputs() {
 		
 		//test for invalid inputs

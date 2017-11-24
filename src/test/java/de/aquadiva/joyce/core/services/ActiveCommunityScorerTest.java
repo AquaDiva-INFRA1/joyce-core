@@ -241,16 +241,6 @@ public class ActiveCommunityScorerTest {
 	}
 
 	@Test
-	public void testGetScoreRemovedWithValidInputs() {
-		
-		// test correctness of the result for a valid input 
-		
-		Double score = (new ActiveCommunityScorer(scorerLogger)).getScoreRemoved(s2, module3);
-		assertEquals( 0.0 , score.doubleValue(), 0.0 );
-		
-	}
-	
-	@Test
 	public void testGetScoreRemovedWithInvalidInputs() {
 		
 		// test for invalid inputs

@@ -107,15 +107,6 @@ public class ClassCoverlapScorerTest {
 	}
 	
 	@Test
-	public void testScoreOntologySetFromScratchWithValidInputs() {
-		
-		//test correctness of the result for a valid input 
-		(new ClassOverlapScorer()).score(s2, inputClassIds);
-		assertEquals( -0.1, s2.getScore(ScoreType.CLASS_OVERLAP).doubleValue(), 0.0 );
-		
-	}
-	
-	@Test
 	public void testScoreOntologySetFromScratchWithInvalidInputs() {
 		
 		//test for invalid inputs

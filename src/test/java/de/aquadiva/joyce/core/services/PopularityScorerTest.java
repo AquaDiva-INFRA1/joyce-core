@@ -137,15 +137,6 @@ public class PopularityScorerTest {
 
 	}
 	
-	@Test
-	public void testScoreOntologySetFromScratchWithValidInputs() {
-		
-		// test correctness of the result for a valid input 
-		
-		(new PopularityScorer()).score(s2);
-		assertEquals( 0.5 , s2.getScore(ScoreType.POPULARITY).doubleValue(), 0.0 );
-		
-	}
 	
 	@Test
 	public void testScoreOntologySetFromScratchWithInvalidInputs() {
@@ -164,16 +155,6 @@ public class PopularityScorerTest {
 		// an ontology has no classes assigned to it
 		(new PopularityScorer()).score(s4);
 		assertEquals( 0.0 , s4.getScore(ScoreType.POPULARITY).doubleValue(), 0.0 );
-		
-	}
-	
-	@Test
-	public void testGetScoreAddedWithValidInputs() {
-		
-		// test correctness of the result for a valid input 
-		
-		Double score = (new PopularityScorer()).getScoreAdded(s5, module3);
-		assertEquals( 0.5 , score.doubleValue(), 0.0 );
 		
 	}
 	
@@ -200,16 +181,6 @@ public class PopularityScorerTest {
 
 	}
 
-	@Test
-	public void testGetScoreRemovedWithValidInputs() {
-		
-		// test correctness of the result for a valid input 
-		
-		Double score = (new PopularityScorer()).getScoreRemoved(s2, module3);
-		assertEquals( 0.0 , score.doubleValue(), 0.0 );
-		
-	}
-	
 	@Test
 	public void testGetScoreRemovedWithInvalidInputs() {
 		
