@@ -3,10 +3,8 @@ package de.aquadiva.joyce.core.services;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -23,16 +21,14 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.slf4j.Logger;
 
+import de.aquadiva.joyce.base.data.Ontology;
+import de.aquadiva.joyce.base.data.OntologyModule;
+import de.aquadiva.joyce.util.OntologyModularizationException;
 /*import FUSION.OPT.algorithm.SeeCOnt.Findk.FindOptimalCluster;
 import FUSION.OPT.algorithm.SeeCOnt.Cluster;
 import FUSION.OPT.general.cc.Controller;*/
 import fusion.oapt.algorithm.partitioner.SeeCOnt.Findk.FindOptimalCluster;
 import fusion.oapt.general.cc.Controller;
-import org.apache.jena.ontology.OntModel;
-
-import de.aquadiva.joyce.base.data.Ontology;
-import de.aquadiva.joyce.base.data.OntologyModule;
-import de.aquadiva.joyce.util.OntologyModularizationException;
 
 public class OntologyModularizationService implements IOntologyModularizationService {
 
@@ -49,7 +45,7 @@ public class OntologyModularizationService implements IOntologyModularizationSer
 		ModularizationWorker worker = new ModularizationWorker(o);
 		Future<List<OntologyModule>> modulesFuture = executor.submit(worker);
 		try {
-			// TODO raise time and write out which ontology took how long
+			// HERE: Modularization timeout
 			return modulesFuture.get(120, TimeUnit.DAYS);
 		} catch (InterruptedException | ExecutionException e) {
 			throw new OntologyModularizationException("Exception happened during modularization: " + e.getMessage(), e);
