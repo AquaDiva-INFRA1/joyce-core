@@ -41,7 +41,7 @@ public class ConceptTaggingService implements IConceptTaggingService {
 					GazetteerAnnotator.class,
 					GazetteerAnnotator.PARAM_OUTPUT_TYPE,
 					"de.julielab.jcore.types.OntClassMention",
-					GazetteerAnnotator.PARAM_CHECK_ACRONYMS, true,
+					GazetteerAnnotator.PARAM_CHECK_ACRONYMS, false,
 					GazetteerAnnotator.CHUNKER_RESOURCE_NAME, extDesc);
 
 			jCas = JCasFactory.createJCas("de.julielab.jcore.types.jcore-all-types");
