@@ -1,5 +1,7 @@
 # JOYCE Core
 
+For a general overview over the JOYCE project and instructions how to install and run JOYCE, please refer to the README.md file of the joyce repository.
+
 The JOYCE Core is a rather small project and heavily relies on JOYCE Base. The Core contains services for the modularization of ontologies and the scoring of ontologies and modules.
 
 It also contains the concept tagging service that is explained below.
