@@ -46,7 +46,7 @@ public class OntologyModularizationService implements IOntologyModularizationSer
 		Future<List<OntologyModule>> modulesFuture = executor.submit(worker);
 		try {
 			// HERE: Modularization timeout
-			return modulesFuture.get(120, TimeUnit.DAYS);
+			return modulesFuture.get(6, TimeUnit.HOURS);
 		} catch (InterruptedException | ExecutionException e) {
 			throw new OntologyModularizationException("Exception happened during modularization: " + e.getMessage(), e);
 		} catch (TimeoutException e) {
@@ -158,7 +158,7 @@ public class OntologyModularizationService implements IOntologyModularizationSer
 				}
 
 				time = System.currentTimeMillis() - time;
-				log.info("Modularization of ontology {}has been done! Took {}ms ({}s)",
+				log.info("Modularization of ontology {} has been done! Took {}ms ({}s)",
 						new Object[] { o.getId(), time, time / 1000 });
 				deleteFile();
 			}
