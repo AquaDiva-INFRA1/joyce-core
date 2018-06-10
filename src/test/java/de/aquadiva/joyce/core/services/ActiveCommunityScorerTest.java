@@ -3,7 +3,6 @@ package de.aquadiva.joyce.core.services;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.HashSet;
